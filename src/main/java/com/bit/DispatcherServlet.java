@@ -22,7 +22,7 @@ public class DispatcherServlet extends HttpServlet {
         // TODO Auto-generated method stub
         request.setCharacterEncoding("UTF-8");
         String cmd=request.getParameter("cmd");
-        System.out.println("cmd: " + cmd);
+
         Controller controller = mapper.getController(cmd);
         PageMovement pageMovement = controller.execute(request,response);
 

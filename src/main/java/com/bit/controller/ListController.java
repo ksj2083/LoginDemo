@@ -21,6 +21,6 @@ public class ListController implements Controller {
 
         List<Object> map = listService.getList();
         request.setAttribute("list", map);
-        return new PageMovement("login/list.jsp", PageMovementType.FORWARD);
+        return new PageMovement("upload/list_c.jsp", PageMovementType.FORWARD);
     }
 }

@@ -6,7 +6,6 @@ import com.bit.type.PageMovementType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 
 public class LoginController implements Controller {
 
@@ -14,16 +13,21 @@ public class LoginController implements Controller {
 
     @Override
     public PageMovement execute(HttpServletRequest request, HttpServletResponse response) {
-        String userId = request.getParameter("userId");
-        String userPw = request.getParameter("userPw");
+        String userId = request.getParameter("id");
+        String userPw = request.getParameter("pass");
+
+        System.out.println("id : " + userId);
+        System.out.println("pw : "+ userPw);
 
         if(loginService.loginCheck(userId, userPw)) {
             request.getSession().setAttribute("id", userId);
-            request.getSession().setMaxInactiveInterval(60);
+            request.getSession().setMaxInactiveInterval(600);
+            request.setAttribute("state", "T");
 
-            return new PageMovement("list.do?cmd=list", PageMovementType.REDIRECT);
+            return new PageMovement("login/AjaxLoginView.jsp", PageMovementType.FORWARD);
         }
 
-        return new PageMovement("login/loginIndex.jsp", PageMovementType.FORWARD);
+        request.setAttribute("state", "F");
+        return new PageMovement("login/AjaxLoginView.jsp", PageMovementType.FORWARD);
     }
 }

@@ -1,9 +1,6 @@
 package com.bit;
 
-import com.bit.controller.Controller;
-import com.bit.controller.InfoController;
-import com.bit.controller.ListController;
-import com.bit.controller.LoginController;
+import com.bit.controller.*;
 
 public class Mapper {
 
@@ -19,6 +16,10 @@ public class Mapper {
 
         if(cmd.equalsIgnoreCase("List")) {
             return new ListController();
+        }
+
+        if(cmd.equalsIgnoreCase("insertBoard")) {
+            return new InsertController();
         }
 
         return null;
