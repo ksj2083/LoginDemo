@@ -19,4 +19,14 @@ public class ListService {
         // TODO Auto-generated method stub
         ListDao.getListDao().insertBoard(vo);
     }
+
+    public void updateHit(int no) {
+        ListDao.getListDao().updateHit(no);
+
+    }
+
+    public BoardAppVO selectDetail(int no) {
+        return ListDao.getListDao().selectDetail(no);
+    }
+
 }

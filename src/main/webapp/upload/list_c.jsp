@@ -85,7 +85,6 @@
                     </colgroup>
                     <thead>
                     <tr>
-                        <th scope="col" class="fir">NO</th>
                         <th scope="col">image</th>
                         <th scope="col">title</th>
                         <th scope="col">writer</th>
@@ -99,14 +98,18 @@
 
                     <c:forEach var="i" items="${list}">
                         <tr>
-                            <th>${i.no}</th>
-                            <td><img src="${pageContext.request.contextPath}/upload/${i.fileName}" width="50"
-                                     height="50"/></td>
-                            <th>${i.title}</th>
-                            <th>${i.writer}</th>
-                            <th>${i.hit}</th>
-                            <th>${i.regdate}</th>
-                            <th>${i.id}</th>
+                            <td>
+                                    ${i.no }no
+                                <a href="${pageContext.request.contextPath}/hit.do?cmd=hit&no=${i.no}&job=detail">
+                                    <img src="${pageContext.request.contextPath}/upload/${i.fileName}" width="50" height="50"/>
+                                </a>
+                            </td>
+
+                            <td>${i.title}</td>
+                            <td>${i.writer}</td>
+                            <td>${i.hit}</td>
+                            <td>${i.regdate}</td>
+                            <td>${i.id}</td>
 
                         </tr>
                     </c:forEach>
@@ -140,9 +143,9 @@
 </div>
 <script>
 
-	$("#search").click(function () {
-		location.href = "${pageContext.request.contextPath}/Search.do?cmd=search&keyword="+$("input#inputText").val();
-	});
+    $("#search").click(function () {
+        location.href = "${pageContext.request.contextPath}/Search.do?cmd=search&keyword=" + $("input#inputText").val();
+    });
 </script>
 </body>
 </html>

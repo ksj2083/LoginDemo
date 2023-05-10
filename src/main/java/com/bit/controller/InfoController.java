@@ -22,6 +22,6 @@ public class InfoController implements Controller {
         System.out.println("info: " + info);
         System.out.println(info.toString());
         request.setAttribute("info", info);
-        return new PageMovement("login/info.jsp", PageMovementType.FORWARD);
+        return new PageMovement("login/detail.jsp", PageMovementType.FORWARD);
     }
 }

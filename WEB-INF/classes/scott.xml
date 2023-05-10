@@ -25,6 +25,12 @@
     <select id="selectList" resultType="com.bit.vo.BoardAppVO">
         SELECT * FROM CRUDAPP
     </select>
+
+    <select id="selectDetail" resultType="com.bit.vo.BoardAppVO" parameterType="java.lang.Integer">
+        SELECT *
+        FROM CRUDAPP
+        WHERE NO=#{VALUE}
+    </select>
     
     <select id="selectListByTitle" resultType="com.bit.vo.BoardAppVO" parameterType="java.lang.String">
         SELECT * FROM CRUDAPP
@@ -35,5 +41,10 @@
         INSERT INTO CRUDAPP(title,writer,password,contents,id,hit,fileName,regdate)
         VALUES(#{title},#{writer},#{password},#{contents},#{id},0,#{fileName},now())
     </insert>
+
+    <update id="updateHit" parameterType="java.lang.Integer">
+        UPDATE CRUDAPP SET hit=hit+1
+        WHERE NO=#{VALUE}
+    </update>
 
 </mapper>

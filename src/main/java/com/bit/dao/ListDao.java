@@ -66,4 +66,26 @@ public class ListDao {
             sqlSession.close();
         }
     }
+
+    public void updateHit(int no) {
+        // TODO Auto-generated method stub
+        SqlSession sqlSession=sessionFactory.openSession();
+        try {
+            sqlSession.update("com.bit.vo.updateHit",no);
+            sqlSession.commit();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+            sqlSession.rollback();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+
+    public BoardAppVO selectDetail(int no) {
+
+        return sessionFactory.openSession().selectOne("com.bit.vo.selectDetail",no);
+    }
 }

@@ -26,6 +26,14 @@ public class Mapper {
             return new InsertController();
         }
 
+        if(cmd.equalsIgnoreCase("hit")) {
+            return new HitController();
+        }
+
+        if(cmd.equalsIgnoreCase("detail")) {
+            return new DetailController();
+        }
+
         return null;
     }
 }
