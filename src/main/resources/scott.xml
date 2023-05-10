@@ -22,6 +22,15 @@
                  WHERE COMMISSION_PCT IS NOT NULL
     </select>
 
+    <select id="selectList" resultType="com.bit.vo.BoardAppVO">
+        SELECT * FROM CRUDAPP
+    </select>
+    
+    <select id="selectListByTitle" resultType="com.bit.vo.BoardAppVO" parameterType="java.lang.String">
+        SELECT * FROM CRUDAPP
+        WHERE CRUDAPP.TITLE LIKE CONCAT('%',#{keyword},'%')
+    </select>
+
     <insert id="insertBoard" parameterType="com.bit.vo.BoardAppVO">
         INSERT INTO CRUDAPP(title,writer,password,contents,id,hit,fileName,regdate)
         VALUES(#{title},#{writer},#{password},#{contents},#{id},0,#{fileName},now())

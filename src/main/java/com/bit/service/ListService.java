@@ -7,8 +7,12 @@ import java.util.List;
 
 public class ListService {
 
-    public List<Object> getList() {
+    public List<BoardAppVO> getList() {
         return ListDao.getListDao().getList();
+    }
+
+    public List<BoardAppVO> getListByTitle(String keyword) {
+        return ListDao.getListDao().getListByTitle(keyword);
     }
 
     public void insertBoard(BoardAppVO vo) {

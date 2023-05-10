@@ -18,12 +18,29 @@ public class ListDao {
     }
 
 
-    public List<Object> getList() {
+    public List<BoardAppVO> getList() {
         // TODO Auto-generated method stub
         SqlSession sqlSession=sessionFactory.openSession();
-        List<Object> list = null;
+        List<BoardAppVO> list = null;
+
         try {
-            list = sqlSession.selectList("com.bit.vo.selectEMP");
+            list = sqlSession.selectList("com.bit.vo.selectList");
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return list;
+    }
+
+    public List<BoardAppVO> getListByTitle(String keyword) {
+        // TODO Auto-generated method stub
+        SqlSession sqlSession=sessionFactory.openSession();
+        List<BoardAppVO> list = null;
+        try {
+            list = sqlSession.selectList("com.bit.vo.selectListByTitle", keyword);
 
         } catch (Exception e) {
             // TODO: handle exception
