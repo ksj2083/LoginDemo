@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 public class ListDao {
@@ -35,12 +36,12 @@ public class ListDao {
         return list;
     }
 
-    public List<BoardAppVO> getListByTitle(String keyword) {
+    public List<BoardAppVO> getListByTitle(Hashtable<String, Object> hashtable) {
         // TODO Auto-generated method stub
         SqlSession sqlSession=sessionFactory.openSession();
         List<BoardAppVO> list = null;
         try {
-            list = sqlSession.selectList("com.bit.vo.selectListByTitle", keyword);
+            list = sqlSession.selectList("com.bit.vo.selectListByTitle", hashtable);
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -50,6 +51,24 @@ public class ListDao {
         }
         return list;
     }
+
+    public Integer getTotalCount(String keyword) {
+        // TODO Auto-generated method stub
+        SqlSession sqlSession=sessionFactory.openSession();
+        Integer total = -1;
+
+        try {
+            total = sqlSession.selectOne("com.bit.vo.selectTotal", keyword);
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }finally {
+            sqlSession.close();
+        }
+        return total;
+    }
+
 
     public void insertBoard(BoardAppVO vo) {
         // TODO Auto-generated method stub

@@ -32,8 +32,14 @@
         WHERE NO=#{VALUE}
     </select>
     
-    <select id="selectListByTitle" resultType="com.bit.vo.BoardAppVO" parameterType="java.lang.String">
+    <select id="selectListByTitle" resultType="com.bit.vo.BoardAppVO" parameterType="java.util.Hashtable">
         SELECT * FROM CRUDAPP
+        WHERE CRUDAPP.TITLE LIKE CONCAT('%',#{keyword},'%')
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="selectTotal" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from CRUDAPP
         WHERE CRUDAPP.TITLE LIKE CONCAT('%',#{keyword},'%')
     </select>
 

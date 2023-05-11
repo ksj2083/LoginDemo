@@ -38,7 +38,7 @@
 						<span class="fr">
 
 							<span id="search" class="button">
-								<a>검색</a>
+								<a href="#">검색</a>
 							</span>
 
 
@@ -60,13 +60,13 @@
                     </colgroup>
                     <tbody>
                     <tr>
-                        <th>검색</th>
-                        <td>
-                            <select style="width: 100%">
-                                <option>선택하세요</option>
-                            </select>
+                        <th>제목 검색</th>
+                        <%--                        <td>--%>
+                        <%--                            <select style="width: 100%">--%>
+                        <%--                                <option>선택하세요</option>--%>
+                        <%--                            </select>--%>
 
-                        </td>
+                        <%--                        </td>--%>
                         <td>
                             <input type="text" name="keyword" id="inputText" size="30"/>
                         </td>
@@ -85,6 +85,7 @@
                     </colgroup>
                     <thead>
                     <tr>
+                        <th scope="col" class="fir">no</th>
                         <th scope="col">image</th>
                         <th scope="col">title</th>
                         <th scope="col">writer</th>
@@ -98,10 +99,11 @@
 
                     <c:forEach var="i" items="${list}">
                         <tr>
+                            <td>${i.no}</td>
                             <td>
-                                    ${i.no }no
                                 <a href="${pageContext.request.contextPath}/hit.do?cmd=hit&no=${i.no}&job=detail">
-                                    <img src="${pageContext.request.contextPath}/upload/${i.fileName}" width="50" height="50"/>
+                                    <img src="${pageContext.request.contextPath}/upload/${i.fileName}" width="50"
+                                         height="50"/>
                                 </a>
                             </td>
 
@@ -118,23 +120,48 @@
                 </table>
 
                 <div class="paging">
-                    <a href="#"><img src="${pageContext.request.contextPath}/img/button/btn_first.gif" alt="처음페이지"/></a>
-                    <a href="#"><img src="${pageContext.request.contextPath}/img/button/btn_prev.gif" alt="이전"/></a>
+                    <a href="${pageContext.request.contextPath}/Search.do?cmd=list&keyword=${param.keyword}&curPage=1">
+                        <img src="${pageContext.request.contextPath}/img/button/btn_first.gif" alt="처음페이지"/>
+                    </a>
+
+                    <c:choose>
+                        <c:when test="${pageBean.currentPage>1}">
+                            <a href="${pageContext.request.contextPath}/Search.do?cmd=list&keyword=${param.keyword}&curPage=${pageBean.currentPage-1}">
+                                <img src="${pageContext.request.contextPath}/img/button/btn_prev.gif" alt="이전"/>
+                            </a>
+                        </c:when>
+                    </c:choose>
+
+
 
                     <span>
-							<a href="#">1</a>
-							<a href="#">2</a>
-							<a href="#">3</a>
-							<strong>4</strong>
-							<a href="#">5</a>
-							<a href="#">6</a>
-							<a href="#">7</a>
-							<a href="#">8</a>
-							<a href="#">9</a>
-						</span>
+                        	<c:forEach var="num" begin="${pageBean.startPage}" end="${pageBean.endPage}" step="1">
+                                <c:choose>
+                                    <c:when test="${num eq pageBean.currentPage}">
+                                        <a href="${pageContext.request.contextPath}/Search.do?cmd=list&keyword=${param.keyword}&curPage=${num}"
+                                           id="pagenum"><font color="red">${num}</font></a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${pageContext.request.contextPath}/Search.do?cmd=list&keyword=${param.keyword}&curPage=${num}"
+                                           id="pagenum">${num}</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                    </span>
 
-                    <a href="#"><img src="${pageContext.request.contextPath}/img/button/btn_next.gif" alt="다음"/></a>
-                    <a href="#"><img src="${pageContext.request.contextPath}/img/button/btn_last.gif" alt="마지막페이지"/></a>
+                    <c:choose>
+                        <c:when test="${pageBean.totalPage>pageBean.currentPage}">
+                            <a href="${pageContext.request.contextPath}/Search.do?cmd=list&keyword=${param.keyword}&curPage=${pageBean.currentPage+1}">
+                                <img src="${pageContext.request.contextPath}/img/button/btn_next.gif" alt="다음"/>
+                            </a>
+                        </c:when>
+                    </c:choose>
+
+
+
+                    <a href="${pageContext.request.contextPath}/Search.do?cmd=list&keyword=${param.keyword}&curPage=${pageBean.totalPage}">
+                        <img src="${pageContext.request.contextPath}/img/button/btn_last.gif" alt="마지막페이지"/>
+                    </a>
 
                 </div>
             </div>
@@ -143,8 +170,10 @@
 </div>
 <script>
 
+    $("input#inputText").val(new URLSearchParams(location.search).get("keyword"))
+
     $("#search").click(function () {
-        location.href = "${pageContext.request.contextPath}/Search.do?cmd=search&keyword=" + $("input#inputText").val();
+        location.href = "${pageContext.request.contextPath}/Search.do?cmd=list&keyword=" + $("input#inputText").val();
     });
 </script>
 </body>
